@@ -1,0 +1,30 @@
+env:
+  seed: 0
+  name: LunarLanderContinuous-v2
+  step_max: 1000
+  pomdp: True
+policy:
+  name: model_rnn
+#  state_num: 8
+#  action_num: 2
+#  discrete_action: False
+  add_gru: True
+optim:
+  name: ga_uberai
+  maximization: True
+  population_size: 96
+  generation_num: 3000
+  truncation_selection: True
+  top_T: 20 # top T individuals become the parents of the next generation
+  elite_candidate_size: 10
+  addition_eval_elite_candidate: 30
+  elitism: 1
+  input_running_mean_std: False  # fixme: check True setting
+  input_clip: False
+  input_clip_value_min: Null
+  input_clip_value_max: Null
+  sigma_init: 0.002 # noise standard deviation
+  sigma_decay: 0.999
+  learning_rate: 0.001
+  learning_rate_decay: 0.9999
+  weight_decay: 0

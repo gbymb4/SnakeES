@@ -1,0 +1,30 @@
+env:
+  seed: 2
+  name: WorkflowScheduling-v0
+  traffic_pattern: CONSTANT
+  gamma: 5
+  wf_size: S  # S, M, L, XL
+  wf_num: 30
+policy:
+  name: model_workflow
+#  state_num: 8
+#  action_num: 1
+#  discrete_action: True
+  add_gru: False
+optim:
+  name: es_openai
+  population_size: 40
+  maximization: True
+  generation_num: 3000
+  input_running_mean_std: True
+  input_clip: False
+  input_clip_value_min: Null
+  input_clip_value_max: Null
+  reward_shaping: True
+  reward_norm: False
+  sigma_init: 0.01 # noise standard deviation
+  sigma_decay: 0.999
+  learning_rate: 0.001
+  learning_rate_decay: 0.9999
+  reinforce_lr: 0.01
+  weight_decay: 0

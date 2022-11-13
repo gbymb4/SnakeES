@@ -1,0 +1,20 @@
+env:
+  seed: 2
+  name: LunarLanderContinuous-v2
+  step_max: 300
+  pomdp: True
+policy:
+  name: model_rnn
+  state_num: 8
+  action_num: 4
+  discrete_action: False
+  add_gru: True
+optim:
+  name: es_openai
+  population_size: 96
+  generation_num: 3000
+  input_running_mean_std: False
+  sigma_init: 0.168
+  sigma_decay: 0.9999
+  learning_rate: 0.087
+  weight_decay: 0

@@ -1,0 +1,10 @@
+gym~=0.21.0
+numpy~=1.21.4
+networkx~=2.6.3
+pandas~=1.3.5
+torch~=1.10.0
+PyYAML~=6.0
+matplotlib~=3.5.1
+seaborn~=0.11.2
+moviepy~=1.0.3
+Box2D~=2.3.10

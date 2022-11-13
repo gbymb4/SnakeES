@@ -1,0 +1,32 @@
+env:
+  name: FisheryManagement-v0
+  step_max: 230
+  address: "localhost"
+  port: 12345
+  seed: 0
+  hist_len: 3
+  w1: 0.01
+  w2: 0.01
+
+policy:
+  name: model_rnn
+#  state_num: 9
+#  action_num: 1
+#  discrete_action: False
+  add_gru: True
+
+optim:
+  name: es_openai
+  population_size: 40
+  generation_num: 3000
+  input_running_mean_std: True
+  input_clip: False
+  input_clip_value_min: Null
+  input_clip_value_max: Null
+  reward_shaping: False
+  reward_norm: False
+  sigma_init: 0.1 # noise standard deviation
+  sigma_decay: 0.999
+  learning_rate: 0.08
+  learning_rate_decay: 0.9999
+  weight_decay: 0
