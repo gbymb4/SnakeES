@@ -40,6 +40,8 @@ def lose(reason, renderer, listener):
     
     listener.stop()
     
+    main()
+    
     
 
 def main():
@@ -58,7 +60,7 @@ def main():
                 snake = snake_game.snake
                 
                 move_dir = snake.move_direction
-                print(f'Reading Action: {listener.action}')
+                
                 if listener.action is not None:
                     try: 
                         move_dir = contextualise_pointing_direction(
@@ -83,6 +85,8 @@ def main():
     except:
         renderer.stop()
         listener.stop()
+
+
     
 if __name__ == '__main__':
     main()
