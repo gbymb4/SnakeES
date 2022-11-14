@@ -18,11 +18,9 @@ from env.snake.lib.game import (
     OutsideRegionException,
     AteSelfException,
     TICK_DELAY,
-    MoveDirection
 )
 
 from env.snake.lib.renderer import (
-    SnakeWindow, 
     initialise_renderer, 
     update_visualisation
 )
