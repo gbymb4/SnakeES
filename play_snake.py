@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from env.snake.lib.game import (
-    Game, create_listener, ACTION,
+    Game, KeyListener,
     contextualise_pointing_direction,
     InvalidPointingContextException,
     OutsideRegionException,
@@ -21,17 +21,24 @@ from env.snake.lib.game import (
     MoveDirection
 )
 
+from env.snake.lib.renderer import (
+    SnakeWindow, 
+    initialise_renderer, 
+    update_visualisation
+)
+
 def set_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
 
 
 
-def display(game):...
-
-
-def lose(reason):
+def lose(reason, renderer, listener):
     print(f'lost due to {reason}!')
+    
+    renderer.stop()
+    
+    listener.stop()
     
     
 
@@ -39,35 +46,43 @@ def main():
     set_seed(0)
     
     snake_game = Game()
-    _ = create_listener()
+    listener = KeyListener()
     
-    display(snake_game)
-    time.sleep(TICK_DELAY)
-    
-    while True:
-        try:
-            snake = snake_game.snake
-            
-            move_dir = snake.move_direction
-            
-            #move_dir = MoveDirection(np.random.choice(3) - 1) 
-            
-            if ACTION is not None:
-                try: move_dir = contextualise_pointing_direction(ACTION, snake)
-                except InvalidPointingContextException:...
-            
-            snake_game.step(move_dir)    
-            
-            display(snake_game)
-            
-            time.sleep(TICK_DELAY)
-            
-        except OutsideRegionException as e: 
-            lose(e)
-            break
-        except AteSelfException as e:
-            lose(e)
-            break
+    try:
+        renderer, visualisation = initialise_renderer(snake_game)
+        
+        time.sleep(TICK_DELAY)
+        
+        while True:
+            try:
+                snake = snake_game.snake
+                
+                move_dir = snake.move_direction
+                print(f'Reading Action: {listener.action}')
+                if listener.action is not None:
+                    try: 
+                        move_dir = contextualise_pointing_direction(
+                            listener.consume_action(), 
+                            snake
+                        )
+                    except InvalidPointingContextException:...
+                
+                snake_game.step(move_dir)    
+                
+                update_visualisation(renderer, visualisation, snake_game)
+                
+                time.sleep(TICK_DELAY)
+                
+            except OutsideRegionException as e: 
+                lose(e, renderer, listener)
+                break
+            except AteSelfException as e:
+                lose(e, renderer, listener)
+                break
+        
+    except:
+        renderer.stop()
+        listener.stop()
     
 if __name__ == '__main__':
     main()
